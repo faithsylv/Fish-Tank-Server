@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser")
 const passport = require("passport")
 
 if (process.env.NODE_ENV !== "production") {
-  // Load environment variables from .env file in non prod environments - to do, make secret
+  // Load environment variables from .env file in non prod environments - TODO: add to heroku config
   require("dotenv").config()
 }
 require("./utils/connectdb")
