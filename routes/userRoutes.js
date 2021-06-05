@@ -4,7 +4,7 @@ const User = require("../models/user")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
 
-const { getToken, COOKIE_OPTIONS, getRefreshToken } = require("../authenticate")
+const { getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser } = require("../authenticate")
 
 router.post("/signup", (req, res, next) => {
   // Verify that first name is not empty
@@ -110,6 +110,10 @@ router.post("/refreshToken", (req, res, next) => {
     res.statusCode = 401
     res.send("Unauthorized")
   }
+})
+
+router.get("/me", verifyUser, (req, res, next) => {
+  res.send(req.user)
 })
 
 module.exports = router
