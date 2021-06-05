@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
+const passport = require("passport")
+
 const { getToken, COOKIE_OPTIONS, getRefreshToken } = require("../authenticate")
 router.post("/signup", (req, res, next) => {
   // Verify that first name is not empty
@@ -38,4 +40,25 @@ router.post("/signup", (req, res, next) => {
     )
   }
 })
+
+router.post("/login", passport.authenticate("local"), (req, res, next) => {
+  const token = getToken({ _id: req.user._id })
+  const refreshToken = getRefreshToken({ _id: req.user._id })
+  User.findById(req.user._id).then(
+    user => {
+      user.refreshToken.push({ refreshToken })
+      user.save((err, user) => {
+        if (err) {
+          res.statusCode = 500
+          res.send(err)
+        } else {
+          res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
+          res.send({ success: true, token })
+        }
+      })
+    },
+    err => next(err)
+  )
+})
+
 module.exports = router
