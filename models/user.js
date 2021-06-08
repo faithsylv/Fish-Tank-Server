@@ -16,6 +16,10 @@ const User = new Schema({
     type: String,
     default: "",
   },
+  institutionName: {
+    type: String,
+    default: "",
+  },
   authStrategy: {
     type: String,
     default: "local",
