@@ -25,7 +25,7 @@ router.post("/signup", (req, res, next) => {
         } else {
           user.firstName = req.body.firstName;
           user.lastName = req.body.lastName || "";
-          user.institution = req.body.institutionName;
+          user.institutionName = req.body.institutionName;
           const token = getToken({ _id: user._id });
           const refreshToken = getRefreshToken({ _id: user._id });
           user.refreshToken.push({ refreshToken });
