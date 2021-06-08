@@ -23,11 +23,12 @@ router.post("/signup", (req, res, next) => {
           res.statusCode = 500
           res.send(err)
         } else {
-          user.firstName = req.body.firstName
-          user.lastName = req.body.lastName || ""
-          const token = getToken({ _id: user._id })
-          const refreshToken = getRefreshToken({ _id: user._id })
-          user.refreshToken.push({ refreshToken })
+          user.firstName = req.body.firstName;
+          user.lastName = req.body.lastName || "";
+          user.institution = req.body.institutionName;
+          const token = getToken({ _id: user._id });
+          const refreshToken = getRefreshToken({ _id: user._id });
+          user.refreshToken.push({ refreshToken })''
           user.save((err, user) => {
             if (err) {
               res.statusCode = 500
