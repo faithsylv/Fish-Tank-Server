@@ -28,7 +28,7 @@ router.post("/signup", (req, res, next) => {
           user.institution = req.body.institutionName;
           const token = getToken({ _id: user._id });
           const refreshToken = getRefreshToken({ _id: user._id });
-          user.refreshToken.push({ refreshToken })''
+          user.refreshToken.push({ refreshToken });
           user.save((err, user) => {
             if (err) {
               res.statusCode = 500
