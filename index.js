@@ -17,6 +17,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
 //Add the client URL to the CORS policy
+console.log(process.env.WHITELISTED_DOMAINS.split(','));
 const whitelist = process.env.WHITELISTED_DOMAINS
   ? process.env.WHITELISTED_DOMAINS.split(",")
   : []
