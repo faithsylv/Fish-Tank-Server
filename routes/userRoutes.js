@@ -28,6 +28,7 @@ router.post("/signup", (req, res, next) => {
           user.institutionName = req.body.institutionName;
           const token = getToken({ _id: user._id });
           const refreshToken = getRefreshToken({ _id: user._id });
+          console.log(refreshToken);
           user.refreshToken.push({ refreshToken });
           user.save((err, user) => {
             if (err) {
@@ -61,6 +62,34 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
       })
     },
     err => next(err)
+  )
+})
+
+router.post("/update", verifyUser, (req, res, next) => {
+  User.findById(req.user._id).then(
+    user => {
+      user.save((err, user) => {
+        if(err) {
+          res.statusCode = 500;
+          res.send(err);
+        } else {
+          user.question1 = req.body.question1;
+          user.question2 = req.body.question2;
+          user.question3 = req.body.question3;
+          user.question4 = req.body.question4;
+          user.question5 = req.body.question5;
+          user.question6 = req.body.question6;
+          user.save((err, user) => {
+            if (err) {
+              res.statusCode = 500
+              res.send(err)
+            } else {
+              res.send({ success: true })
+            }
+          })
+        }
+      })
+    }
   )
 })
 

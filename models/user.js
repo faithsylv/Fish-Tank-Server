@@ -24,13 +24,33 @@ const User = new Schema({
     type: String,
     default: "local",
   },
-  points: {
-    type: Number,
-    default: 50,
-  },
   refreshToken: {
     type: [Session],
   },
+  question1: {
+    type: String,
+    default: ''
+  },
+  question2: {
+    type: String,
+    default: ''
+  },
+  question3: {
+    type: String,
+    default: ''
+  },
+  question4: {
+    type: String,
+    default: ''
+  },
+  question5: {
+    type: String,
+    default: ''
+  },
+  question6: {
+    type: String,
+    default: ''
+  }
 })
 //Remove refreshToken from the response
 User.set("toJSON", {
